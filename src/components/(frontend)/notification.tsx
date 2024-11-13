@@ -2,34 +2,38 @@
 import React, { useEffect, useState } from "react";
 
 type Event = {
-  date: string; // ISO date string, e.g., "2024-11-20T18:30:00.000Z"
-  time: string; // Time string, e.g., "13:23"
+  date: string; 
+  time: string; 
 };
 
 export const NotificationsComponent: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [snoozedNotifications, setSnoozedNotifications] = useState<{ [key: string]: number }>({});
 
+  
   const fetchEvents = async () => {
     try {
       const response = await fetch("/api/getall");
       const data = await response.json();
+      console.log("Fetched events:", data.getall); 
       setEvents(data.getall || []);
     } catch (error) {
       console.error("Error fetching events:", error);
     }
   };
 
+
   const requestNotificationPermission = async () => {
     if (Notification.permission !== "granted") {
-      await Notification.requestPermission();
+      const permission = await Notification.requestPermission();
+      console.log("Notification permission:", permission); 
     }
   };
 
   const sendNotification = (event: Event) => {
     if (Notification.permission === "granted") {
       const notification = new Notification("Event Reminder", {
-        body: `Event scheduled for ${event.time} IST.`,
+        body: `Event scheduled for ${event.time}.`,
       });
 
       notification.onclick = () => notification.close();
@@ -38,39 +42,49 @@ export const NotificationsComponent: React.FC = () => {
         const snoozeKey = `${event.date}-${event.time}`;
         setSnoozedNotifications((prev) => ({
           ...prev,
-          [snoozeKey]: Date.now() + 300000, // Snooze for 5 minutes
+          [snoozeKey]: Date.now() + 300000,
         }));
       };
     }
   };
 
+  
   const checkForNotifications = () => {
     const now = new Date();
-    const nowIST = new Date(now.getTime() + 5.5 * 60 * 60 * 1000); // Convert to IST
+    console.log("Current time:", now); 
 
     events.forEach((event) => {
-      const [year, month, day] = event.date.split("T")[0].split("-");
+      const [day, month, year] = event.date.split("/");
       const [hours, minutes] = event.time.split(":");
-      const eventDateTimeIST = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes)).getTime();
+      const eventDateTime = new Date(
+        Number(year),
+        Number(month) - 1,
+        Number(day),
+        Number(hours),
+        Number(minutes)
+      ).getTime();
+
+      console.log(`Checking event: ${event.date} ${event.time}, Event time: ${new Date(eventDateTime)}`); // Log event time
 
       const snoozeKey = `${event.date}-${event.time}`;
       if (
-        eventDateTimeIST <= nowIST.getTime() + 60000 && // Notify if event is within the next 1 minute
+        eventDateTime <= now.getTime() &&
+        eventDateTime > now.getTime() - 60000 && 
         (!snoozedNotifications[snoozeKey] || snoozedNotifications[snoozeKey] <= now.getTime())
       ) {
+        console.log("Sending notification for event:", event); 
         sendNotification(event);
       }
     });
   };
-
+console.log(checkForNotifications);
   useEffect(() => {
     requestNotificationPermission();
     fetchEvents();
-  }, []);
 
+  
+  }, []);
   useEffect(() => {
-    const intervalId = setInterval(checkForNotifications, 60000); // Check every minute
-    return () => clearInterval(intervalId);
   }, [events, snoozedNotifications]);
 
   return null;
