@@ -24,7 +24,7 @@ Start the App:
 
 npm run start
 Open in Browser: Visit http://localhost:3000 to access the app.
-  ![Screenshot 2024-11-13 195123](https://github.com/user-attachments/assets/2967ee81-6964-46d9-b97b-23f754b3b510)
+ 
 title, date, time, and optional image.
 
 Usage
@@ -33,3 +33,4 @@ Receive Notifications: Notifications appear at the scheduled time, alerting you 
 Snooze or Dismiss Notifications: You can either dismiss the notification or snooze it for 5 minutes, if desired.
 Notification Permissions
 Upon starting the app, you may be asked to allow notifications. Please enable this to receive alerts. Notifications are essential to the functionality of the Calendar App.
+ ![Screenshot 2024-11-13 195123](https://github.com/user-attachments/assets/2967ee81-6964-46d9-b97b-23f754b3b510)
