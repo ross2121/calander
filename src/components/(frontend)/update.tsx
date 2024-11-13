@@ -27,9 +27,9 @@ const Editform = ({ formId }: IEditFormProps) => {
     const  fetchform = async () => {
       try {
         const response = await axios.get(
-          `https://calander-five.vercel.app/api/getbyid?id=${formId}`
+          `/api/getbyid?id=${formId}`
         );
-        console.log("Fetched data:", response.data); // Debug log
+        console.log("Fetched data:", response.data);
         setForm(response.data.data);
       } catch (error) {
         console.error("Error fetching movie details:", error);
@@ -47,7 +47,7 @@ const Editform = ({ formId }: IEditFormProps) => {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `https://calander-five.vercel.app/api/update?id=${formId}`,
+        `/api/update?id=${formId}`,
         form
       );
       toast("Form updated successfully");

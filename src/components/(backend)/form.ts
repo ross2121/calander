@@ -112,12 +112,7 @@ export const deleteform = async (req: NextRequest) => {
 }
 export const getall= async () => {
     try {
-      const getall=await prisma.form.findMany({
-        select:{
-            time:true,
-            date:true
-        }
-      });     
+      const getall=await prisma.form.findMany();     
         return NextResponse.json({getall}, { status: 200 });
         
         
