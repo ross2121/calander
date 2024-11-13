@@ -167,43 +167,47 @@ export const Form = () => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white p-8 rounded-lg w-3/4 max-w-lg shadow-lg">
             {existingEvent ? (
-              <div>
-                <h2 className="text-5xl font-bold mb-9">
-                  Event for {date?.toLocaleDateString("en-IN")}
-                </h2>
-                <p className="text-5xl font-bold mb-5">
-                  <strong>Title:</strong> {existingEvent.title}
-                </p>
-                <p className="text-5xl font-bold mb-5">
-                  <strong>Text:</strong> {existingEvent.text}
-                </p>
-                <p>
-                  <strong>Time:</strong> {existingEvent.time}
-                </p>
-                {existingEvent.picture && (
-                  <Image
-                    src={existingEvent.picture}
-                    width={200}
-                    height={200}
-                    alt="Uploaded Picture"
-                    style={{ maxWidth: "200px" }}
-                  />
-                )}
-                <div className="flex gap-4 mt-4">
-                  <Link href={`/edit/${existingEvent.id}`}>
-                        <Edit2 className="w-8 h-8 hover:text-green-600" />
-                      </Link>
-                  <Trash onClick={deleteForm} className="w-8 h-8 hover:text-green-600" />
-                    {/* Delete */}
-                  
-                  <button
-                    onClick={handleCancel}
-                    className="px-4 py-2 bg-gray-300 rounded text-gray-700 hover:bg-gray-400"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
+             <div className="bg-white shadow-md rounded-lg p-8 max-w-lg mx-auto">
+             <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
+               Event for {date?.toLocaleDateString("en-IN")}
+             </h2>
+             <p className="text-xl font-bold text-gray-700 mb-3">
+               <strong>Title:</strong> {existingEvent.title}
+             </p>
+             <p className="text-lg text-gray-600 mb-4">
+               <strong>Description:</strong> {existingEvent.text}
+             </p>
+             <p className="text-lg text-gray-600 mb-4">
+               <strong>Time:</strong> {existingEvent.time}
+             </p>
+             {existingEvent.picture && (
+               <div className="flex justify-center mb-6">
+                 <Image
+                   src={existingEvent.picture}
+                   width={200}
+                   height={200}
+                   alt="Uploaded Picture"
+                   className="rounded-lg shadow-md"
+                 />
+               </div>
+             )}
+             <div className="flex justify-between items-center mt-6">
+               <Link href={`/edit/${existingEvent.id}`}>
+                 <Edit2 className="w-6 h-6 text-gray-500 hover:text-green-600 transition-transform transform hover:scale-110" />
+               </Link>
+               <Trash
+                 onClick={deleteForm}
+                 className="w-6 h-6 text-gray-500 hover:text-red-600 transition-transform transform hover:scale-110"
+               />
+               <button
+                 onClick={handleCancel}
+                 className="px-6 py-2 bg-gray-200 rounded-md text-gray-700 hover:bg-gray-300 transition"
+               >
+                 Close
+               </button>
+             </div>
+           </div>
+           
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="flex justify-between items-center mb-4">
