@@ -11,7 +11,6 @@ export interface IEditFormProps {
 }
 
 const Editform = ({ formId }: IEditFormProps) => {
-  console.log("Editing movie with ID:", formId);
   const [form, setForm] = useState<{
     title: string;
     text: string;
@@ -28,7 +27,7 @@ const Editform = ({ formId }: IEditFormProps) => {
     const  fetchform = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/getbyid?id=${formId}`
+          `https://calander-five.vercel.app/api/getbyid?id=${formId}`
         );
         console.log("Fetched data:", response.data); // Debug log
         setForm(response.data.data);
@@ -48,7 +47,7 @@ const Editform = ({ formId }: IEditFormProps) => {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `http://localhost:3000/api/update?id=${formId}`,
+        `https://calander-five.vercel.app/api/update?id=${formId}`,
         form
       );
       toast("Form updated successfully");
