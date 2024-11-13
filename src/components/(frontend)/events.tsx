@@ -51,7 +51,7 @@ const ProductList = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<{ getall: Product[] }>("http://localhost:3000/api/getall");
+      const response = await axios.get<{ getall: Product[] }>("/api/getall");
       if (response.data.getall.length === 0) {
         setError("No products available.");
       } else {
