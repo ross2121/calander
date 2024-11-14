@@ -18,9 +18,7 @@ export default function Main() {
   
   
     
-   
-
-  {/* Calendar Section */}
+  
   <section className="w-full md:w-2/3 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
     <h2 className="text-xl font-semibold text-blue-600 mb-4">Schedule Events</h2>
     <div className="flex items-center justify-center">
@@ -28,7 +26,7 @@ export default function Main() {
     </div>
     <Link href="/get" passHref>
       <button className="px-4 py-2 bg-blue-500 text-white rounded">
-        View All Products
+        View All Events
       </button>
     </Link>
   </section>

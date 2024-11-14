@@ -132,11 +132,11 @@ const ProductList = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold flex justify-center my-9">List of Products</h2>
+      <h2 className="text-2xl font-bold flex justify-center my-9">List of Events</h2>
       <div className="mb-4 w-1/2">
         <Input
           type="text"
-          placeholder="Search by Product Name"
+          placeholder="Search by Event Name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full"
@@ -187,7 +187,7 @@ const ProductList = () => {
                     <DrawerContent>
                       <DrawerHeader>
                         <DrawerTitle>
-                          Are you sure you want to delete the product {product.title}?
+                          Are you sure you want to delete the event {product.title}?
                         </DrawerTitle>
                         <DrawerDescription>
                           This action cannot be undone.
